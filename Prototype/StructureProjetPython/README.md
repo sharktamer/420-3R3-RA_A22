@@ -1,0 +1,1 @@
+# Projet template pour une architecture simple en python d'un programme qui se connecte a une BD

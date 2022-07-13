@@ -1,4 +1,4 @@
-class TupleClient:
+class Client:
     def __init__(self, id, prenom, nom):
         self.id = id
         self.prenom = prenom

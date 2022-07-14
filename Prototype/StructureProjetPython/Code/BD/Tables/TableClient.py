@@ -22,7 +22,7 @@ class TableClient:
     def RequeteUnClient(self, id):
         try:
             curseur = self.connexion.cursor()
-            curseur.execute(self.sql_obtenir_client_par_id, [str(id)])
+            curseur.execute(self.sql_obtenir_client_par_id, [id])
             tuple = curseur.fetchone()
             curseur.close()
             return tuple
@@ -40,7 +40,7 @@ class TableClient:
     def RequeteSupprimerClient(self, id):
         try:
             curseur = self.connexion.cursor()
-            curseur.execute(self.sql_supprimer_client, [str(id)])
+            curseur.execute(self.sql_supprimer_client, [id])
             curseur.close()
         except (Exception)as error:
             print(error)

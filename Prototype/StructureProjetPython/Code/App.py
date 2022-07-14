@@ -1,7 +1,7 @@
 import psycopg2
 import argparse
 
-from GestionGlobale import GestionGlobale
+from gestionGlobale import GestionGlobale
 
 ################
 # Initialisaton
@@ -19,11 +19,25 @@ except (Exception) as error:
     print(error)
     exit()
 
+# Initialisation du gestionnaire globale
+# C'est cet objet qui contient toutes les fonctions disponible à l'interface (visuelle ou command line)
 gestionnaire = GestionGlobale(connexion)
 
 ###############
 # Interface Command Line
 ###############
+################
+# Pour ce modèle de base de structure de projet python j'ai inclus une interface
+# en command line. La logique de l'architecture est que chaque composante est
+# séparée. Pour faire une interface graphique, il suffirait juste d'initier une
+# connexion et un gestionnaire. On asscocierait ensuite des événements aux fonctions
+# du gestionnaire et le reste du programme continuerait à fonctionner sans qu'aucun
+# changement au backend soit nécessaire.
+# Idée d'interface python : pyQt5, tkinter
+# Idée web : Transformer cette app en contrôleur web REST avec par exemple Flask
+#           et effectuer des requêtes http pour créer une interface web.
+################
+
 # 1. Définition des commandes du programme
 interpreteur = argparse.ArgumentParser(prog='App', usage='%(prog)s [options] parametres', description="Interface textuelle pour gerer l'application")
 sousInterpreteur = interpreteur.add_subparsers(dest='command')

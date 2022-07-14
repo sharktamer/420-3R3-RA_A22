@@ -1,13 +1,14 @@
-from BD.GestionClients import GestionClients
-from BD.GestionProduits import GestionProduits
-from BD.GestionVentes import GestionVentes
-from Modeles.Client import Client
+from BD.gestionClients import GestionClients
+from BD.gestionProduits import GestionProduits
+from BD.gestionTransactions import GestionTransactions
+from Modeles.client import Client
 
 
-# Cette classe de gestion globale peut semble être répétitive face aux classes de transactions, mais l'idée est de séparer les types de transactions dans des classes différentes
+# Cette classe de gestion globale peut sembler être répétitive face aux classes de transactions, mais l'idée est de séparer les types de transactions dans des classes différentes
+# Autrement dit on fournit un point d'entré unique dans l'application, il suffit d'utiliser ce gestionnaire pour faire toutes les actions autorisés dans l'application.
 # Cela permet de modifier plus facilement des parties de programmes sans affecter le reste.
-# On a donc besoin d'un seul gestionnaire parent qui appelle des fonctions de ses gestionnaires enfants spécialisés dans certains aspects du programme.
-# On utilise cette couche pour gerer des transactions qui impliquent plusieurs sous-transactions
+# On a donc besoin d'un seul gestionnaire globale qui appelle des fonctions de ses gestionnaires spécialisés dont il est composé dans certains aspects du programme.
+# On utilise cette couche pour gérer des transactions qui impliquent plusieurs sous-transactions
 # C'est à cette couche que l'interface utilisateur est connectée, ce sont les fonctions disponibles directement pour l'utilisateur
 # Cette couche ne connaît pas la représentation interne de la BD et manipules seulement les objets modèles
 class GestionGlobale:
@@ -15,14 +16,15 @@ class GestionGlobale:
         self.connexion = connexion
         self.gestionClients = GestionClients(self.connexion)
         self.gestionProduits = GestionProduits(self.connexion)
-        self.gestionVentes = GestionVentes(self.connexion)
+        self.gestionVentes = GestionTransactions(self.connexion)
 
     def AfficherListeClientConsole(self):
         for client in self.gestionClients.ObtenirListeClient():
             client.AfficherConsole()
 
     def AfficherListeItemConsole(self):
-        pass
+        for item in self.gestionProduits.ObtenirListeItem():
+            item.AfficherConsole()
 
     def AfficherListeRocheConsole(self):
         pass
@@ -34,10 +36,12 @@ class GestionGlobale:
         pass
 
     def AjouterClient(self, prenom, nom):
-        pass
+        client = Client(None, prenom, nom)
+        self.gestionClients.AjouterClient(client)
 
     def SupprimerClient(self, id):
-        pass
+        client = Client(id, None, None)
+        self.gestionClients.SupprimerClient(client)
 
     def AjouterRoche(self, nom, description, prix, poids, couleur):
         pass

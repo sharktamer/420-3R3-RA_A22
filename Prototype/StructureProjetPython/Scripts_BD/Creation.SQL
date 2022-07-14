@@ -6,12 +6,6 @@ CREATE TABLE Client (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Categorie (
-    id SERIAL,
-    nom VARCHAR(64) NOT NULL,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE Item (
     id SERIAL,
     id_categorie INTEGER NOT NULL,
@@ -20,7 +14,6 @@ CREATE TABLE Item (
     prix NUMERIC NOT NULL,
     quantite INTEGER NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_categorie) REFERENCES Categorie (id)
 );
 
 CREATE TABLE Roche (

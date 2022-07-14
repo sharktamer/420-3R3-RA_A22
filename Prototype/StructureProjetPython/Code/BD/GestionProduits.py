@@ -4,6 +4,7 @@ from .Tables.tableArbre import TableArbre
 from Modeles.item import Item
 from Modeles.arbre import Arbre
 from Modeles.roche import Roche
+from constantes import *
 
 
 #La construction d'objet avec *tuple est expliqué ici : https://docs.python.org/3.7/tutorial/controlflow.html#unpacking-argument-lists
@@ -27,7 +28,24 @@ class GestionProduits:
         listeItem = []
         for tuple in self.tableItem.RequeteToutItem():
             listeItem.append(Item(*tuple))
-        return listeItem
+        listeItemCategorise = []
+        for item in listeItem:
+            if (item.id_categorie == CATEGORIE_ROCHE):
+                listeItemCategorise.append(Roche(item.id,
+                                                item.nom,
+                                                item.description,
+                                                item.prix,
+                                                item.quantite,
+                                                self.tableRoche.RequetePoidsRoche(item.id),
+                                                self.tableRoche.RequeteCouleurRoche(item.id)))
+            elif (item.id_categorie == CATEGORIE_ARBRE):
+                listeItemCategorise.append(Arbre(item.id,
+                                                item.nom,
+                                                item.description,
+                                                item.prix,
+                                                item.quantite,
+                                                self.tableArbre.RequeteHauteurArbre(item.id)))
+        return listeItemCategorise
     
     def ObtenirUnItem(self, id):
         tuple = self.tableItem.RequeteUnItem(id)
@@ -38,15 +56,25 @@ class GestionProduits:
         #Aucune transactions partielle ne doit être effectué
         #C'est pourquoi les Try Catch son essentiel ici.
         try:
+            # On crée l'entrée des infos de base de l'objet dans la BD
             self.tableItem.RequeteAjouterItem(item.id_categorie, item.nom, item.description, item.prix, item.quantite)
-            
-            
+            # On ajoute les infos propres à la catégorie de l'item
+            if (item.id_categorie == CATEGORIE_ROCHE):
+                self.tableRoche.RequeteAjouterRoche(item.id, item.poids, item.couleur)
+            elif(item.id_categorie == CATEGORIE_ARBRE):
+                self.tableArbre.RequeteAjouterArbre(item.id, item.hauteur)
             self.connexion.commit()
         except (Exception)as error:
             print(error)
     
     def SupprimerItem(self, item):
         try:
+            # On doit d'abord supprimer les éléments qui font référence à la clé id d'item
+            if (item.id_categorie == CATEGORIE_ROCHE):
+                self.tableRoche.RequeteSupprimerRoche(item.id)
+            elif(item.id_categorie == CATEGORIE_ARBRE):
+                self.tableArbre.RequeteSupprimerArbre(item.id)
+            # On peut ensuite supprimer l'item
             self.tableItem.RequeteSupprimerItem(item.id)
             self.connexion.commit()
         except (Exception)as error:

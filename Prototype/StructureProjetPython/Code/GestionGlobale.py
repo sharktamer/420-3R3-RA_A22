@@ -26,12 +26,6 @@ class GestionGlobale:
         for item in self.gestionProduits.ObtenirListeItem():
             item.AfficherConsole()
 
-    def AfficherListeRocheConsole(self):
-        pass
-
-    def AfficherListeArbreConsole(self):
-        pass
-
     def AfficherListeVenteConsole(self):
         pass
 

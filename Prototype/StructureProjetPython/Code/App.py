@@ -44,8 +44,6 @@ sousInterpreteur = interpreteur.add_subparsers(dest='command')
 
 listc = sousInterpreteur.add_parser('listc', help='Affiche la liste des clients')
 listi = sousInterpreteur.add_parser('listi', help='Affiche la liste des items')
-listr = sousInterpreteur.add_parser('listr', help='Affiche la liste des roches')
-lista = sousInterpreteur.add_parser('lista', help='Affiche la liste des arbres')
 
 addc = sousInterpreteur.add_parser('addc', help='Ajoute un client')
 addc.add_argument('--prenom', type=str, required=True)
@@ -86,10 +84,6 @@ if (arguments.command == "listc"):
     gestionnaire.AfficherListeClientConsole()
 elif (arguments.command == "listi"):
     gestionnaire.AfficherListeItemConsole()
-elif (arguments.command == "listr"):
-    gestionnaire.AfficherListeRocheConsole()
-elif (arguments.command == "lista"):
-    gestionnaire.AfficherListeArbreConsole()
 elif (arguments.command == "listv"):
     gestionnaire.AfficherListeVenteConsole()
 elif (arguments.command == "addc"):

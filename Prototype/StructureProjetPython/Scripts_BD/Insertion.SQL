@@ -5,11 +5,6 @@ VALUES
 (2, 'Simone', 'Lemieux'),
 (3, 'Jean', 'Tremblay');
 
-INSERT INTO Categorie (id, nom) 
-VALUES
-(1, 'Roche'),
-(2, 'Arbre');
-
 INSERT INTO Item (id, id_categorie, nom, description, prix, quantite) 
 VALUES
 (1, 1, 'Météorite', 'Une grosse roche venue de l''espace Wow!', 799.99, 23),

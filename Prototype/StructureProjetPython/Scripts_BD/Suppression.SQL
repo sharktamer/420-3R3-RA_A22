@@ -1,5 +1,4 @@
 /* Scripts de suppression de BD */
-DROP TABLE Categorie CASCADE;
 DROP TABLE Arbre CASCADE;
 DROP TABLE Roche CASCADE;
 DROP TABLE Item CASCADE;

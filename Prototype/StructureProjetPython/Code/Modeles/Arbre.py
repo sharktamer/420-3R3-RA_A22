@@ -1,7 +1,11 @@
-class Arbre:
-    def __init__(self, id_item, hauteur):
-        self.id_item = id_item
+from Modeles.item import Item
+from constantes import *
+class Arbre(Item):
+    def __init__(self, id, nom, description, prix, quantite, hauteur):
+        Item.__init__(self, id, CATEGORIE_ARBRE, nom, description, prix, quantite)
         self.hauteur = hauteur
 
     def AfficherConsole(self):
-        print("\nid:{}\nhauteur:{}".format(self.id_item, self.hauteur))
+        print("\nid:{}\nCatégorie:Arbre\nnom:{}\ndescription:{}\nprix:{}\nquantite:{}"
+            .format(self.id, self.nom, self.description, self.prix, self.quantite))
+        print("hauteur:{}".format(self.hauteur))

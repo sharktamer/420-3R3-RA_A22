@@ -4,7 +4,8 @@ class TableArbre:
         self.connexion=connexion
 
     sql_obtenir_liste_arbre = """SELECT * FROM Arbre"""
-    sql_obtenir_arbre_par_id = """SELECT * FROM Arbre WHERE id=%s"""
+    sql_obtenir_arbre_par_id = """SELECT * FROM Arbre WHERE id_item=%s"""
+    sql_obtenir_hauteur_arbre_par_id = """SELECT hauteur FROM Arbre WHERE id_item=%s"""
     sql_ajouter_arbre = """INSERT INTO 
                         Arbre (id_item, hauteur) 
                         VALUES (%s, %s)"""
@@ -27,6 +28,16 @@ class TableArbre:
             tuple = curseur.fetchone()
             curseur.close()
             return tuple
+        except (Exception)as error:
+            print(error)
+
+    def RequeteHauteurArbre(self, id):
+        try:
+            curseur = self.connexion.cursor()
+            curseur.execute(self.sql_obtenir_hauteur_arbre_par_id, [id])
+            tuple = curseur.fetchone()
+            curseur.close()
+            return tuple[0]
         except (Exception)as error:
             print(error)
 

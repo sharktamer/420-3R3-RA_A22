@@ -57,12 +57,12 @@ class GestionProduits:
         #C'est pourquoi les Try Catch son essentiel ici.
         try:
             # On crée l'entrée des infos de base de l'objet dans la BD
-            self.tableItem.RequeteAjouterItem(item.id_categorie, item.nom, item.description, item.prix, item.quantite)
+            id = self.tableItem.RequeteAjouterItem(item.id_categorie, item.nom, item.description, item.prix, item.quantite)
             # On ajoute les infos propres à la catégorie de l'item
             if (item.id_categorie == CATEGORIE_ROCHE):
-                self.tableRoche.RequeteAjouterRoche(item.id, item.poids, item.couleur)
+                self.tableRoche.RequeteAjouterRoche(id, item.poids, item.couleur)
             elif(item.id_categorie == CATEGORIE_ARBRE):
-                self.tableArbre.RequeteAjouterArbre(item.id, item.hauteur)
+                self.tableArbre.RequeteAjouterArbre(id, item.hauteur)
             self.connexion.commit()
         except (Exception)as error:
             print(error)
@@ -76,6 +76,13 @@ class GestionProduits:
                 self.tableArbre.RequeteSupprimerArbre(item.id)
             # On peut ensuite supprimer l'item
             self.tableItem.RequeteSupprimerItem(item.id)
+            self.connexion.commit()
+        except (Exception)as error:
+            print(error)
+
+    def ModifierQuantiteItem(self, item, quantite):
+        try:
+            self.tableItem.RequeteModifierQuantiteItem(item.id, quantite)
             self.connexion.commit()
         except (Exception)as error:
             print(error)

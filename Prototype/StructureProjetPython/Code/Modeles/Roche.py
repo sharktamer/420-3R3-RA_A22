@@ -2,7 +2,7 @@ from Modeles.item import Item
 from constantes import *
 class Roche(Item):
     def __init__(self, id, nom, description, prix, quantite, poids, couleur):
-        Item.__init__(self, id, CATEGORIE_ROCHE, nom, description, prix, quantite)
+        super().__init__(id, CATEGORIE_ROCHE, nom, description, prix, quantite)
         self.poids = poids
         self.couleur = couleur
 

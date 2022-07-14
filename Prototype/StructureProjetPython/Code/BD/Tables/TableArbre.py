@@ -6,10 +6,8 @@ class TableArbre:
     sql_obtenir_liste_arbre = """SELECT * FROM Arbre"""
     sql_obtenir_arbre_par_id = """SELECT * FROM Arbre WHERE id_item=%s"""
     sql_obtenir_hauteur_arbre_par_id = """SELECT hauteur FROM Arbre WHERE id_item=%s"""
-    sql_ajouter_arbre = """INSERT INTO 
-                        Arbre (id_item, hauteur) 
-                        VALUES (%s, %s)"""
-    sql_supprimer_arbre = """DELETE FROM Arbre WHERE id=%s"""
+    sql_ajouter_arbre = """INSERT INTO Arbre (id_item, hauteur) VALUES (%s, %s)"""
+    sql_supprimer_arbre = """DELETE FROM Arbre WHERE id_item=%s"""
 
     def RequeteToutArbre(self):
         try:

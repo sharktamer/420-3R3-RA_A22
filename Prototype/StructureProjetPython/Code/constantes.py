@@ -4,3 +4,7 @@
 
 CATEGORIE_ROCHE = 1;
 CATEGORIE_ARBRE = 2;
+ID_DEFAUT_CREATION = None;
+
+class BoutiqueException(Exception):
+    pass

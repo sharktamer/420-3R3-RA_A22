@@ -44,6 +44,7 @@ sousInterpreteur = interpreteur.add_subparsers(dest='command')
 
 listc = sousInterpreteur.add_parser('listc', help='Affiche la liste des clients')
 listi = sousInterpreteur.add_parser('listi', help='Affiche la liste des items')
+listi = sousInterpreteur.add_parser('listv', help='Affiche la liste des ventes')
 
 addc = sousInterpreteur.add_parser('addc', help='Ajoute un client')
 addc.add_argument('--prenom', type=str, required=True)
@@ -68,13 +69,13 @@ adda.add_argument('--hauteur', type=int, required=True)
 deli = sousInterpreteur.add_parser('deli', help='Supprime un item')
 deli.add_argument('--id', type=int, required=True)
 
-buy = sousInterpreteur.add_parser('buy', help='Modifie la quantite d''un item')
+buy = sousInterpreteur.add_parser('setqt', help='Modifie la quantite d''un item')
 buy.add_argument('--id', type=int, required=True)
 buy.add_argument('--qt', type=int, required=True)
 
 sell = sousInterpreteur.add_parser('sell', help='Vente d''un item')
-sell.add_argument('--iditem', type=int, required=True)
 sell.add_argument('--idclient', type=int, required=True)
+sell.add_argument('--iditem', type=int, required=True)
 sell.add_argument('--qt', type=int, required=True)
 
 arguments = interpreteur.parse_args()
@@ -96,10 +97,10 @@ elif (arguments.command == "adda"):
     gestionnaire.AjouterArbre(arguments.nom, arguments.description, arguments.prix, arguments.hauteur)
 elif (arguments.command == "deli"):
     gestionnaire.SupprimerItem(arguments.id)
-elif (arguments.command == "buy"):
+elif (arguments.command == "setqt"):
     gestionnaire.ModifierQuantiteItem(arguments.id, arguments.qt)
 elif (arguments.command == "sell"):
-    gestionnaire.VendreItem(arguments.iditem, arguments.idclient, arguments.qt)
+    gestionnaire.VendreItem(arguments.idclient, arguments.iditem, arguments.qt)
 
 ################
 # Fin

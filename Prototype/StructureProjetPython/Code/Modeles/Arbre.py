@@ -2,7 +2,7 @@ from Modeles.item import Item
 from constantes import *
 class Arbre(Item):
     def __init__(self, id, nom, description, prix, quantite, hauteur):
-        Item.__init__(self, id, CATEGORIE_ARBRE, nom, description, prix, quantite)
+        super().__init__(id, CATEGORIE_ARBRE, nom, description, prix, quantite)
         self.hauteur = hauteur
 
     def AfficherConsole(self):

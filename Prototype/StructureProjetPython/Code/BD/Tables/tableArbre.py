@@ -54,3 +54,9 @@ class TableArbre:
             curseur.close()
         except (Exception)as error:
             print(error)
+
+    def RequeteExisteArbre(self, id):
+        if self.RequeteUnArbre(id) is None: 
+            return False
+        else:
+            return True

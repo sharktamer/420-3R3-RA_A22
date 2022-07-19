@@ -46,3 +46,9 @@ class TableClient:
             curseur.close()
         except (Exception)as error:
             print(error)
+
+    def RequeteExisteClient(self, id):
+        if self.RequeteUnClient(id) is None: 
+            return False
+        else:
+            return True

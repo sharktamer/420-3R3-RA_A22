@@ -4,7 +4,7 @@ class TableRoche:
         self.connexion=connexion
 
     sql_obtenir_liste_roche = """SELECT * FROM Roche"""
-    sql_obtenir_roche_par_id = """SELECT * FROM Roche WHERE id=%s"""
+    sql_obtenir_roche_par_id = """SELECT * FROM Roche WHERE id_item=%s"""
     sql_obtenir_poids_roche_par_id = """SELECT poids FROM Roche WHERE id_item=%s"""
     sql_obtenir_couleur_roche_par_id = """SELECT couleur FROM Roche WHERE id_item=%s"""
     sql_ajouter_roche = """INSERT INTO Roche (id_item, poids, couleur) VALUES (%s, %s, %s)"""
@@ -65,3 +65,9 @@ class TableRoche:
             curseur.close()
         except (Exception)as error:
             print(error)
+
+    def RequeteExisteRoche(self, id):
+        if self.RequeteUnRoche(id) is None: 
+            return False
+        else:
+            return True

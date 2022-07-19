@@ -45,3 +45,9 @@ class TableVente:
             curseur.close()
         except (Exception)as error:
             print(error)
+
+    def RequeteExisteVente(self, id):
+        if self.RequeteUnVente(id) is None: 
+            return False
+        else:
+            return True

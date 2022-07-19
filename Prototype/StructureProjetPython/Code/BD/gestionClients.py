@@ -1,8 +1,9 @@
 # Dans cette classe de gestion spécialisé pour les clients, l'objet communique directement avec les gestionnaires de table de base de données pertinents pour obtenir les données
 # On utilise cette couche pour gerer des transactions qui implique plusieurs tables en même temps
 # Cette couche connait à la fois la structure de la BD et les modèles de représentation des objets du logiciel
-from .Tables.tableClient import TableClient
+from BD.Tables.tableClient import TableClient
 from Modeles.client import Client
+from constantes import *
 
 #La construction d'objet avec *tuple est expliqué ici : https://docs.python.org/3.7/tutorial/controlflow.html#unpacking-argument-lists
 #On pourrait également construire un item en faisant Client(tuple[0], tuple[1],  ..., tuple[n])
@@ -13,6 +14,9 @@ class GestionClients:
         self.connexion=connexion
         self.tableClient=TableClient(self.connexion)
 
+    def ClientExiste(self, id):
+        return self.tableClient.RequeteExisteClient(id)
+
     def ObtenirListeClient(self):
         listeClient = []
         for tuple in self.tableClient.RequeteToutClient():
@@ -20,6 +24,10 @@ class GestionClients:
         return listeClient
     
     def ObtenirUnClient(self, id):
+
+        if (self.ClientExiste(id) is False):
+                raise BoutiqueException("Le client ayant pour id : {} n'existe pas".format(id))
+
         tuple = self.tableClient.RequeteUnClient(id)
         return Client(*tuple)
 
@@ -28,14 +36,25 @@ class GestionClients:
         #Aucune transactions partielle ne doit être effectué
         #C'est pourquoi les Try Catch son essentiel ici.
         try:
-            self.tableClient.RequeteAjouterClient(client.prenom, client.nom)
+            # 1. Validations
+            if (self.ClientExiste(client.id)):
+                raise BoutiqueException("Le client ayant pour id : {} existe déjà. Impossible de l'ajouter.".format(client.id))
+            # 2. Actions
+            id = self.tableClient.RequeteAjouterClient(client.prenom, client.nom)
+            # 3. Enregistrement
             self.connexion.commit()
+            return id
         except (Exception)as error:
             print(error)
     
     def SupprimerClient(self, client):
         try:
+            # 1. Validations
+            if (self.ClientExiste(client.id) is False):
+                raise BoutiqueException("Le client ayant pour id : {} n'existe pas. Impossible de le supprimer.".format(client.id))
+            # 2. Actions
             self.tableClient.RequeteSupprimerClient(client.id)
+            # 3. Enregistrement
             self.connexion.commit()
         except (Exception)as error:
             print(error)

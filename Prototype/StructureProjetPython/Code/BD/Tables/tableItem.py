@@ -5,7 +5,7 @@ class TableItem:
 
     sql_obtenir_liste_item = """SELECT * FROM Item ORDER BY id ASC"""
     sql_obtenir_item_par_id = """SELECT * FROM Item WHERE id=%s"""
-    sql_ajouter_item = """INSERT INTO Item (id_categorie, nom, description, prix, quantite) VALUES (%s, %s, %s, %s, %s)RETURNING id"""
+    sql_ajouter_item = """INSERT INTO Item (id_categorie, nom, description, prix, quantite) VALUES (%s, %s, %s, %s, %s) RETURNING id"""
     sql_supprimer_item = """DELETE FROM Item WHERE id=%s"""
     sql_modifier_quantite_item = """UPDATE Item SET quantite=%s WHERE id=%s"""
 
@@ -59,3 +59,9 @@ class TableItem:
             curseur.close()
         except (Exception)as error:
             print(error)
+
+    def RequeteExisteItem(self, id):
+        if self.RequeteUnItem(id) is None: 
+            return False
+        else:
+            return True

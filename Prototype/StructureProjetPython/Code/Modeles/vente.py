@@ -5,6 +5,7 @@ class Vente:
         self.id_item = id_item
         self.quantite = quantite
 
+    # On remplace la fonction "==" entre 2 Ventes par notre propre implantation
     def __eq__(self, other):
         if not isinstance(other, Vente):
             return NotImplemented

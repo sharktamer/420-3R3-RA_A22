@@ -1,4 +1,4 @@
-/* Scripts de creation de BD */
+/* Scripts de création de BD */
 CREATE TABLE Client (
     id SERIAL,
     prenom VARCHAR(64) NOT NULL,

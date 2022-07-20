@@ -1,3 +1,4 @@
+# Cette classe est responsable de faire toutes les requêtes à la table Vente de la base de données
 class TableVente:
 
     sql_obtenir_liste_vente = """SELECT * FROM Vente"""

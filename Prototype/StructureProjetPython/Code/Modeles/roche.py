@@ -7,6 +7,7 @@ class Roche(Item):
         self.poids = poids
         self.couleur = couleur
 
+    # On remplace la fonction "==" entre 2 Roches par notre propre implantation
     def __eq__(self, other):
         if not isinstance(other, Roche):
             return NotImplemented
@@ -15,14 +16,16 @@ class Roche(Item):
             self.id_categorie == other.id_categorie and
             self.nom == other.nom and
             self.description == other.description and
+            # Le == entre 2 nombre à virgule flotante n'est pas fiable en raison des arrondissements. 
+            # On utilise donc la fonction du module math pour la comparaison
             math.isclose(self.prix, other.prix) and
             self.quantite == other.quantite and
-            self.poids == other.poids and
+            math.isclose(self.poids, other.poids) and
             self.couleur == other.couleur
         )
 
 
-    #Un constructeur à partir d'un Item
+    # Un constructeur à partir d'un Item
     def Roche_parItem(item, poids, couleur):
         return Roche(item.id, item.nom, item.description, item.prix, item.quantite, poids, couleur)
 

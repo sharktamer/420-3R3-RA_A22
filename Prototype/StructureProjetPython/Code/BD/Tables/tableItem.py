@@ -1,3 +1,4 @@
+# Cette classe est responsable de faire toutes les requêtes à la table Item de la base de données
 class TableItem:
 
     def __init__(self, connexion):

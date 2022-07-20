@@ -6,17 +6,6 @@ from Modeles.arbre import Arbre
 from Modeles.roche import Roche
 from constantes import *
 
-
-#La construction d'objet avec *tuple est expliqué ici : https://docs.python.org/3.7/tutorial/controlflow.html#unpacking-argument-lists
-#On pourrait également construire un item en faisant Item(tuple[0], tuple[1],  ..., tuple[n])
-#L'idée générale est qu'on utilise les éléments de la liste un par un et on les passe dans le constructeur de l'objet avec un opérateur * plutôt que manuellement
-
-#La logique des transaction devrait toujours être la suivante:
-    # 1. Effectuer les vérifications requises
-    # 2. Effectuer les actions
-    # 3. Enregistrer les changements (Si la transactions modifie la table)
-
-
 class GestionProduits:
     def __init__(self, connexion):
         self.connexion=connexion
@@ -67,8 +56,6 @@ class GestionProduits:
 
 
     def AjouterItem(self, item):
-        #Soit on fait la transaction au complet, soit on n'enregistre rien. 
-        #Aucune transactions partielle ne doit être effectué
         try:
             # 1. Validations
             if (self.ItemExiste(item.id)):

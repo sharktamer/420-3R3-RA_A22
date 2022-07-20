@@ -11,11 +11,11 @@ from Modeles.vente import Vente
 #############
 # Notes
 #############
-# Cette classe de gestion globale peut sembler être répétitive face aux classes de gestion dans le dossier BD, mais l'idée est de séparer les types 
-# de transactions dans des classes différentes. Autrement dit on fournit un point d'entré unique dans l'application, il suffit d'utiliser 
-# ce gestionnaire-ci pour faire toutes les actions autorisés dans l'application. Cela permet de modifier plus facilement des parties de programmes sans affecter le reste.
+# Cette classe de gestion globale peut sembler être répétitive face aux classes de gestion dans le dossier BD, mais l'idée est de séparer l'implantation des types 
+# de transactions dans des classes différentes. Autrement dit, on fournit un point d'entré unique dans l'application. Il suffit d'utiliser 
+# ce gestionnaire-ci pour faire toutes les actions autorisés par un utilisateur. Cela permet de modifier plus facilement des parties de programmes sans affecter le reste.
 # On a donc besoin d'un seul gestionnaire global qui appelle des fonctions de ses gestionnaires spécialisés dans certaines partie du programme.
-# On utilise cette couche pour gérer des transactions qui impliquent plusieurs sous-transactions (donc plusieurs gestionnaires spécialisés)
+# On utilise aussi cette couche pour gérer des transactions qui impliquent plusieurs sous-transactions (donc plusieurs gestionnaires spécialisés)
 # C'est à cette couche que l'interface utilisateur est connectée, ce sont les fonctions disponibles de l'extérieure.
 # Cette couche ne connaît pas la représentation interne de la BD et manipules seulement les objets modèles
 ##############

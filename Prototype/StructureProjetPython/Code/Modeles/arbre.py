@@ -6,6 +6,7 @@ class Arbre(Item):
         super().__init__(id, CATEGORIE_ARBRE, nom, description, prix, quantite)
         self.hauteur = hauteur
 
+    # On remplace la fonction "==" entre 2 Arbres par notre propre implantation
     def __eq__(self, other):
         if not isinstance(other, Arbre):
             return NotImplemented
@@ -14,9 +15,11 @@ class Arbre(Item):
             self.id_categorie == other.id_categorie and
             self.nom == other.nom and
             self.description == other.description and
+            # Le == entre 2 nombre à virgule flotante n'est pas fiable en raison des arrondissements. 
+            # On utilise donc la fonction du module math pour la comparaison
             math.isclose(self.prix, other.prix) and
             self.quantite == other.quantite and
-            self.hauteur == other.hauteur
+            math.isclose(self.hauteur, other.hauteur)
         )
 
     #Un constructeur à partir d'un Item

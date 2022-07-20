@@ -1,3 +1,4 @@
+# Cette classe est responsable de faire toutes les requêtes à la table Arbre de la base de données
 class TableArbre:
 
     def __init__(self, connexion):

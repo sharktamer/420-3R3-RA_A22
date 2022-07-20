@@ -23,10 +23,10 @@ except (Exception) as error:
 gestionnaire = GestionGlobale(connexion)
 
 ###############
-# Interface Command Line
+# Interface Command Line (Avec argparse : https://docs.python.org/3/library/argparse.html)
 ###############
 ################
-# Pour ce modèle de base de structure de projet python j'ai inclus une interface
+# Pour ce modèle de base de structure de projet python, j'ai inclus une interface
 # en command line. La logique de l'architecture est que chaque composante est
 # séparée. Pour faire une interface graphique, il suffirait juste d'initier une
 # connexion et un gestionnaire. On asscocierait ensuite des événements aux fonctions

@@ -20,6 +20,7 @@ except (Exception) as error:
     print(error)
     exit()
 
+# Initialisation du gestionnaire globale utilisé par les tests
 gestionnaire = GestionGlobale(connexion)
 
 class TestClient(unittest.TestCase):
@@ -29,7 +30,7 @@ class TestClient(unittest.TestCase):
         id = gestionnaire.AjouterClient(client.prenom, client.nom)
         # On valide si le client existe maintenant (On peut appeler les fonctions des gestionnaires spécialisés directement pour les tests)
         assert(gestionnaire.gestionClients.ClientExiste(id))
-        # On valide que les informations du clients sont celle attendu
+        # On valide que les informations du client sont celles attendues
         client.id = id
         assert(client == gestionnaire.gestionClients.ObtenirUnClient(id))
         # On supprime le client nouvellement ajouté
@@ -64,7 +65,7 @@ class TestItem(unittest.TestCase):
         # On valide que la quantite initiale est bien de 0
         item = gestionnaire.gestionProduits.ObtenirUnItem(id)
         assert(item.quantite == 0)
-        # On augmente la quantite à 100 et on valide que la nouvelle quantite a été mise à jours
+        # On augmente la quantite à 100 et on valide que la nouvelle quantité a été mise à jour
         gestionnaire.ModifierQuantiteItem(id, 100)
         item = gestionnaire.gestionProduits.ObtenirUnItem(id)
         assert(item.quantite == 100)
@@ -73,7 +74,7 @@ class TestItem(unittest.TestCase):
 
 class TestVente(unittest.TestCase):
 
-    # Cette fonction s'exécutera au début de chaque test
+    # Cette fonction s'exécutera au début de chaque fonction test de la classe TestVente
     def setUp(self):
         # On doit avoir minimalement un client et un article dans la BD pour ajouter des ventes
         client = Client(ID_DEFAUT_CREATION, "Carlos", "Lamarmotte")
@@ -90,10 +91,10 @@ class TestVente(unittest.TestCase):
 
     def test_ajout_suppression(self):
         vente = Vente(ID_DEFAUT_CREATION, self.id_client, self.id_item, 1)
-        # On s'assure de mettre une quantite suffisante pour pouvoir créer la vente
+        # On s'assure de mettre une quantité suffisante pour pouvoir créer la vente
         gestionnaire.ModifierQuantiteItem(self.id_item, 2)
         id = gestionnaire.VendreItem(vente.id_client, vente.id_item, vente.quantite)
-        # On valide que la vente a été créé
+        # On valide que la vente a été créée
         assert(gestionnaire.gestionVentes.VenteExiste(id))
         # On s'assure que la vente correspond à ce qui est attendu
         vente.id = id
@@ -106,24 +107,24 @@ class TestVente(unittest.TestCase):
         gestionnaire.ModifierQuantiteItem(self.id_item, 0)
         vente = Vente(ID_DEFAUT_CREATION, self.id_client, self.id_item, 1)
         id = gestionnaire.VendreItem(vente.id_client, vente.id_item, vente.quantite)
-        # On essait de vendre un item sans avoir la quantite reqise, ce test doit echouer
+        # On essait de vendre un item sans avoir la quantité requise, ce test doit echouer
         assert(gestionnaire.gestionVentes.VenteExiste(id) is False)
-        # On supprime la vente créé
+        # On supprime la vente créée
         vente.id = id
         gestionnaire.gestionVentes.SupprimerVente(vente)
 
     def test_quantite_item_maj_apres_vente(self):
         vente = Vente(ID_DEFAUT_CREATION, self.id_client, self.id_item, 37)
         gestionnaire.ModifierQuantiteItem(self.id_item, 100)
-        # On valide que la quantite de l'item est bien 100
+        # On valide que la quantité de l'item est bien 100
         item = gestionnaire.gestionProduits.ObtenirUnItem(self.id_item)
         assert(item.quantite == 100)
-        # On effectue la vente de 37 unite
+        # On effectue la vente de 37 unités
         id = gestionnaire.VendreItem(vente.id_client, vente.id_item, vente.quantite)
-        # On valide que la quantite de l'item est bien de 63 maintenant 
+        # On valide que la quantité de l'item est bien de 63 maintenant 
         item = gestionnaire.gestionProduits.ObtenirUnItem(self.id_item)
         assert(item.quantite == 63)
-        # On supprime la vente créé
+        # On supprime la vente créée
         vente.id = id
         gestionnaire.gestionVentes.SupprimerVente(vente)
     

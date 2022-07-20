@@ -1,3 +1,4 @@
+# Cette classe est responsable de faire toutes les requêtes à la table Roche de la base de données
 class TableRoche:
 
     def __init__(self, connexion):

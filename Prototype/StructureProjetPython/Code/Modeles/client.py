@@ -4,6 +4,7 @@ class Client:
         self.prenom = prenom
         self.nom = nom
 
+    # On remplace la fonction "==" entre 2 Clients par notre propre implantation
     def __eq__(self, other):
         if not isinstance(other, Client):
             return NotImplemented

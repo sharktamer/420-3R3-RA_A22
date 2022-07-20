@@ -1,4 +1,4 @@
-/* Scripts d'insertion des donnees de base de la BD */
+/* Scripts d'insertion des données de base de la BD */
 INSERT INTO Client (id, prenom, nom) 
 VALUES
 (1, 'Mathieu', 'Morissette'),

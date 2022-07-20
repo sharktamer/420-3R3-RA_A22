@@ -35,15 +35,15 @@ class GestionTransactions:
                 raise BoutiqueException("Le client ayant pour id : {} n'existe pas. Impossible de procéder à la vente".format(vente.id_client))
             if (self.tableItem.RequeteExisteItem(vente.id_item) is False):
                 raise BoutiqueException("L'item ayant pour id : {} n'existe pas. Impossible de procéder à la vente".format(vente.id_item))
-            #On doit vérifier s'il reste suffisament de quantité de l'item qu'on veut acheter
+            # On doit vérifier s'il reste suffisament de quantité de l'item qu'on veut acheter
             tuple = self.tableItem.RequeteUnItem(vente.id_item)
             item = Item(*tuple)
             if (vente.quantite > item.quantite):
                 raise BoutiqueException("Il n'y a pas suffisament de {} pour procéder à la vente...".format(item.nom))
             # 2. Actions
-            #On ajoute la vente
+            # On ajoute la vente
             id = self.tableVente.RequeteAjouterVente(vente.id_client, vente.id_item, vente.quantite)
-            #On met à jour la quantité de l'item
+            # On met à jour la quantité de l'item
             nouvelleQuantite = item.quantite - vente.quantite
             self.tableItem.RequeteModifierQuantiteItem(item.id, nouvelleQuantite)
             # 3. Enregistrement
